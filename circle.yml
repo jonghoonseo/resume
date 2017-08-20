@@ -1,0 +1,26 @@
+## Customize the test machine
+machine:
+  timezone:
+    Asia/Seoul
+
+  services:
+    - docker
+
+checkout:
+  post:
+    - git submodule sync --recursive
+    - git submodule update --recursive --init
+
+## Customize compile commands
+test:
+  override:
+    - docker run --rm -w "/doc" -v "$PWD":/doc thomasweise/texlive make
+  post:
+    - mv *.pdf $CIRCLE_ARTIFACTS/
+
+deployment:
+  release:
+    branch: master
+    commands:
+    # Publish assets to Github
+    - ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME v1.0.$CIRCLE_BUILD_NUM $CIRCLE_ARTIFACTS/ || true
