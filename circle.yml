@@ -13,7 +13,10 @@ checkout:
 
 dependencies:
   pre:
+    # to push release files to github
     - go get github.com/tcnksm/ghr
+    # to push artifacts to google drive: see, https://joeyrobert.org/2016/07/13/artifact-deployment-via-google-drive/
+    - go get github.com/prasmussen/gdrive
 
 ## Customize compile commands
 test:
@@ -28,3 +31,5 @@ deployment:
     commands:
     # Publish assets to Github
     - ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME v1.0.$CIRCLE_BUILD_NUM $CIRCLE_ARTIFACTS/ || true
+    # Publish artifacts to google drive
+    - gdrive upload --refresh-token $GDRIVE_REFRESH_TOKEN --parent $GDRIVE_DIR $CIRCLE_ARTIFACTS/*.pdf
