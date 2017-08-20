@@ -41,6 +41,12 @@
 % \definecolor{graytext}{HTML}{5D5D5D}
 % \definecolor{lighttext}{HTML}{999999}
 
+\usepackage{kotex}
+\usepackage{xifthen}		% To support optional argument for newcommand
+\usepackage{hyperref}		% To support hyperlink for newcommand
+\usepackage{mfirstuc}
+
+
 % Set false if you don't want to highlight section with awesome color
 \setbool{acvSectionColorHighlight}{true}
 
@@ -52,39 +58,35 @@
 %	PERSONAL INFORMATION
 %	Comment any of the lines below if they are not required
 %-------------------------------------------------------------------------------
-% Available options: circle|rectangle,edge/noedge,left/right
-% \photo{./examples/profile.png}
-\name{Claud D.}{Park}
-\position{Software Engineer{\enskip\cdotp\enskip}Security Expert}
-\address{246-1002, Gwangmyeongmayrouge Apt. 86, Cheongna lime-ro, Seo-gu, Incheon-si, 404-180, Rep. of KOREA}
+\name{Jonghoon}{Seo}
+\position{Senior Research Engineer{\enskip\cdotp\enskip}Doctor of Philosophy in Computer Science}
+\address{19, Yangjae-daero 11gil, Seocho-gu, Seoul, 137-893, Rep. of Korea}
 
-\mobile{(+82) 10-9030-1843}
-\email{posquit0.bj@gmail.com}
-\homepage{www.posquit0.com}
-\github{posquit0}
-\linkedin{posquit0}
-% \gitlab{gitlab-id}
+\mobile{(+82) 10-8357-1688}
+\email{jonghoon.seo@gmail.com}
+% \homepage{www.posquit0.com}
+\github{jonghoonseo}
+\linkedin{jonghoonseo}
 % \stackoverflow{SO-id}{SO-name}
-% \twitter{@twit}
+\twitter{@jonghoonseo}
 % \skype{skype-id}
 % \reddit{reddit-id}
 % \extrainfo{extra informations}
 
-\quote{``Be the change that you want to see in the world."}
+% \quote{``Must be the change that you want to see in the world."}
 
 
 %-------------------------------------------------------------------------------
 \begin{document}
 
 % Print the header with above personal informations
-% Give optional argument to change alignment(C: center, L: left, R: right)
 \makecvheader
 
 % Print the footer with 3 arguments(<left>, <center>, <right>)
 % Leave any of these blank if they are not needed
 \makecvfooter
   {\today}
-  {Claud D. Park~~~·~~~Curriculum Vitae}
+  {Jonghoon Seo~~~·~~~Curriculum Vitae}
   {\thepage}
 
 
@@ -93,13 +95,15 @@
 %	Each section is imported separately, open each file in turn to modify content
 %-------------------------------------------------------------------------------
 \input{cv/education.tex}
+\input{cv/work.tex}
+
+\input{cv/teaching.tex}
+
 \input{cv/skills.tex}
 \input{cv/experience.tex}
-\input{cv/extracurricular.tex}
 \input{cv/honors.tex}
 \input{cv/presentation.tex}
-\input{cv/writing.tex}
-\input{cv/committees.tex}
+\input{cv/publication.tex}
 
 
 %-------------------------------------------------------------------------------
