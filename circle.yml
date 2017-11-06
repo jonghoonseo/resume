@@ -18,7 +18,7 @@ dependencies:
 ## Customize compile commands
 test:
   override:
-    - docker run --rm -w "/doc" -v "$PWD":/doc thomasweise/texlive make
+    - docker run --rm -w "/doc" -v "$PWD":/doc jonghoonseo/tex-with-nanumgothic make
   post:
     - mv *.pdf $CIRCLE_ARTIFACTS/
 
