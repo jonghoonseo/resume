@@ -24,5 +24,5 @@ cv_master: template
 	$(CC) -output-directory=$(ROOT_DIR) $(ROOT_DIR)/cv.tex
 
 cv_kor: template
-	git checkout @27.kor
+	git checkout @38.kor
 	$(CC) -output-directory=$(ROOT_DIR) -jobname=cv_kor $(ROOT_DIR)/cv.tex
