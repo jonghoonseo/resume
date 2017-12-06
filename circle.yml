@@ -18,7 +18,9 @@ dependencies:
 ## Customize compile commands
 test:
   override:
-    - docker run --rm -w "/doc" -v "$PWD":/doc jonghoonseo/tex-with-nanumgothic make all
+    - docker run --rm -w "/doc" -v "$PWD":/doc jonghoonseo/tex-with-nanumgothic make
+    - git checkout @38.kor
+    - docker run --rm -w "/doc" -v "$PWD":/doc jonghoonseo/tex-with-nanumgothic make cv_kor
   post:
     - mv *.pdf $CIRCLE_ARTIFACTS/
 
