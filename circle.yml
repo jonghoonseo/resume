@@ -19,7 +19,7 @@ dependencies:
 test:
   override:
     - docker run --rm -w "/doc" -v "$PWD":/doc jonghoonseo/tex-with-nanumgothic make
-    - git checkout @38.kor
+    - git checkout origin/@38.kor -b kor
     - docker run --rm -w "/doc" -v "$PWD":/doc jonghoonseo/tex-with-nanumgothic make cv_kor
   post:
     - mv *.pdf $CIRCLE_ARTIFACTS/
