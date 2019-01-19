@@ -27,8 +27,7 @@ jobs:
     # To see the list of pre-built images that CircleCI provides for most common languages see
     # https://circleci.com/docs/2.0/circleci-images/
     docker:
-    - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
-      command: /sbin/init
+    - image: jonghoonseo/tex-with-nanumgothic
     steps:
     # Machine Setup
     #   If you break your build into multiple jobs with workflows, you will probably want to do the parts of this that are relevant in each
@@ -38,53 +37,19 @@ jobs:
     # In many cases you can simplify this from what is generated here.
     # 'See docs on artifact collection here https://circleci.com/docs/2.0/artifacts/'
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
-    # This is based on your 1.0 configuration file or project settings
-    - run:
-        working_directory: ~/jonghoonseo/resume
-        command: 'echo ''Asia/Seoul'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure
-          -f noninteractive tzdata; sudo service mysql restart; sudo service postgresql
-          restart; '
-    - run:
-        working_directory: ~/jonghoonseo/resume
-        command: 'sudo docker info >/dev/null 2>&1 || sudo service docker start; '
     # Checkout
     #   This would typically go in either a build or a build-and-test job when using workflows
     # This is based on your 1.0 configuration file or project settings
     - run: git submodule sync --recursive
     - run: git submodule update --recursive --init
-    # Dependencies
-    #   This would typically go in either a build or a build-and-test job when using workflows
-    # Restore the dependency cache
-    - restore_cache:
-        keys:
-        # This branch if available
-        - v1-dep-{{ .Branch }}-
-        # Default branch if not
-        - v1-dep-master-
-        # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
-        - v1-dep-
-    # This is based on your 1.0 configuration file or project settings
-    - run: go get github.com/tcnksm/ghr
-    # Save dependency cache
-    - save_cache:
-        key: v1-dep-{{ .Branch }}-{{ epoch }}
-        paths:
-        # This is a broad list of cache paths to include many possible development environments
-        # You can probably delete some of these entries
-        - vendor/bundle
-        - ~/virtualenvs
-        - ~/.m2
-        - ~/.ivy2
-        - ~/.bundle
-        - ~/.go_workspace
-        - ~/.gradle
-        - ~/.cache/bower
+
     # Test
     #   This would typically be a build job when using workflows, possibly combined with build
     # This is based on your 1.0 configuration file or project settings
-    - run: docker run --rm -w "/doc" -v "$PWD":/doc jonghoonseo/tex-with-nanumgothic make
+    # - run: docker run --rm -w "/doc" -v "$PWD":/doc jonghoonseo/tex-with-nanumgothic make
+    - run: make
     - run: git checkout origin/@38.kor -b kor
-    - run: docker run --rm -w "/doc" -v "$PWD":/doc jonghoonseo/tex-with-nanumgothic make cv_kor
+    - run: make cv_kor
     # This is based on your 1.0 configuration file or project settings
     - run: mv *.pdf $CIRCLE_ARTIFACTS/
     # Deployment
