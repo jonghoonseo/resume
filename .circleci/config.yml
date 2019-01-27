@@ -9,7 +9,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/jonghoonseo/resume
+    working_directory: ./jonghoonseo/resume
     parallelism: 1
     shell: /bin/bash --login
     # CircleCI 2.0 does not support environment variables that refer to each other the same way as 1.0 did.
@@ -67,3 +67,33 @@ jobs:
         path: /tmp/circleci-artifacts
     - store_artifacts:
         path: /tmp/circleci-test-results
+    - persist_to_workspace:
+        root: /tmp/circleci-artifacts
+        paths:
+          - cv.pdf
+          - cv_kor.pdf
+
+  publish-github-release:
+    docker:
+      - image: circleci/golang:1.8
+    environment:
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+    steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: /tmp/circleci-artifacts
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            go get github.com/tcnksm/ghr
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} v1.0.$CIRCLE_BUILD_NUM ${CIRCLE_ARTIFACTS}/
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build
+      - publish-github-release:
+          requires:
+            - build
