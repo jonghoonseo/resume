@@ -1,11 +1,9 @@
-FROM		thomasweise/texlive:latest
-MAINTAINER 	jonghoon.seo@gmail.com
+FROM thomasweise/texlive:latest
+MAINTAINER jonghoon.seo@gmail.com
 
-# update apt-get
-RUN 		apt-get -y update
-
-# install git
-RUN 		apt-get -y install git
-
-# install Nanum Godic font
-RUN 		apt-get -y install fonts-nanum
+RUN apt-get update -y && apt-get install -y \
+    git \
+    biber \
+    fonts-nanum \
+    texlive-bibtex-extra \
+    && rm -rf /var/lib/apt/lists/*
