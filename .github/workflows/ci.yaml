@@ -1,0 +1,30 @@
+---
+on:
+  push:
+    branches:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: l.gcr.io/google/bazel:latest
+      volumes:
+        - ${{ github.workspace }}:/work
+      options: |
+        --workdir /work
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v2
+      - name: Checkout sub repo
+        uses: actions/checkout@v2
+        with:
+          # TODO(jseo): Make a dockerfile to contain git > 2.8
+          repository: jonghoonseo/Awesome-CV
+          path: Awesome-CV
+      - name: Build
+        run: |
+          ls -la
+          ls -la Awesome-CV/
+          bazel build resume
+
+  # TODO: Add release, pull_request events
