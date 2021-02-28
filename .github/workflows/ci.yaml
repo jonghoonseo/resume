@@ -23,8 +23,13 @@ jobs:
           path: Awesome-CV
       - name: Build
         run: |
-          ls -la
-          ls -la Awesome-CV/
           bazel build resume
+          cp "$(realpath bazel-bin/resume.pdf)" ./resume_jonghoonseo.pdf
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: resume
+          path: |
+            resume_jonghoonseo.pdf
 
   # TODO: Add release, pull_request events
