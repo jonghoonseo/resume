@@ -1,4 +1,4 @@
-# Resume and CV for Jonghoon Seo
+# Jonghoon Seo's Resume
 
 This repo contains a resume and CV for Jonghoon Seo.
 
