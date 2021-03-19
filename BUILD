@@ -4,12 +4,26 @@ latex_document(
     name = "resume",
     srcs = glob([
         "cv/**",
+        "resources/**",
+    ]) + [
+        ":awesome-cv",
+    ],
+    cmd_flags = ["--bibtex-cmd=biber"],
+    main = "cv.tex",
+)
+
+latex_document(
+    name = "resume_kor",
+    srcs = glob([
+        "cv.kor/**",
+        "fonts/**",
+        "resources/**",
     ]) + [
         ":kotex",
         ":awesome-cv",
     ],
     cmd_flags = ["--bibtex-cmd=biber"],
-    main = "cv.tex",
+    main = "cv.kor.tex",
 )
 
 filegroup(
