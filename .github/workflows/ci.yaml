@@ -21,10 +21,16 @@ jobs:
         run: |
           bazel build resume
           cp "$(realpath bazel-bin/resume.pdf)" ./resume_jonghoonseo.pdf
+      - name: Build Korean version
+        run: |
+          bazel build resume_kor
+          cp "$(realpath bazel-bin/resume_kor.pdf)" ./resume_jonghoonseo_kor.pdf
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: resume_jonghoonseo.pdf
+          files: |
+            resume_jonghoonseo.pdf
+            resume_jonghoonseo_kor.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
