@@ -1,6 +1,10 @@
 ## Bazel artifacts
 bazel-*
 
+## Mac related
+.DS_Store
+__MACOSX
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
